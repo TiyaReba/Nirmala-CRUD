@@ -20,7 +20,15 @@ const ViewStudents = () => {
         setSingleValue(value);
         setUpdate(true);
        }
-
+       const deleteValues = (id)=>{
+        console.log("delete clicked"+ id)
+        axios.delete("http://localhost:3005/students/"+id)
+        .then((response)=>{
+            console.log(response.idvalue);
+            alert("sucessfully deleted");
+            window.location.reload(false);
+        })
+       }   
     var  finalJSX =   <TableContainer>
     <Table>
         <TableHead>
@@ -36,7 +44,21 @@ const ViewStudents = () => {
                     <TableCell>{value.id}</TableCell>
                     <TableCell>{value.name}</TableCell>
                     <TableCell>{value.grade}</TableCell>
-                    <TableCell><Button onClick={()=>updateValue(value)}>Update</Button></TableCell>
+                    <TableCell>
+                        <Button variant='contained'
+                            color ='success'
+                            onClick={()=>updateValue(value)}>
+                            Update
+                            </Button>
+                    </TableCell>
+                   <TableCell>
+                        <Button 
+                            variant='contained' 
+                            color ='error' 
+                            onClick={()=>deleteValues(value.id)}>
+                        Delete</Button>
+                    </TableCell>
+                    
                 </TableRow>
                 })}
                
